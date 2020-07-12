@@ -76,12 +76,12 @@ void drawRays2D()
     float aTan=-1/tan(ra);
     if(ra>PI){ ry=(((int)py>>6)<<6)-0.0001; rx=(py-ry)*aTan+px; yo=-64; xo=-yo*aTan; }//looking up
     if(ra<PI){ ry=(((int)py>>6)<<6)+64;     rx=(py-ry)*aTan+px; yo= 64; xo=-yo*aTan; }//looking down 
-    if(ra==0 || ra==PI){ rx=px; ry=py; dof=8; } //looking straight left or right
+    if(ra==0 || ra==PI){ rx=px; ry=py; dof=1; } //looking straight left or right
     while(dof<8)
     {
       mx=(int)(rx)>>6; my=(int)(ry)>>6; mp=my*mapX+mx;
       if(mp>0 && mp<mapX*mapY && map[mp]==1){ dof=8;} //hit wall
-      else{ rx+xo; ry+=yo; dof+=1;} //next line
+      else{ rx+=xo; ry+=yo; dof+=1;} //next line
     }
     glColor3f(0,1,0); glLineWidth(10); glBegin(GL_LINES); glVertex2i(px,py); glVertex2i(rx,ry); glEnd();
     //---Check Vertical Lines---
@@ -95,7 +95,7 @@ void drawRays2D()
     {
       mx=(int)(rx)>>6; my=(int)(ry)>>6; mp=my*mapX+mx;
       if(mp>0 && mp<mapX*mapY && map[mp]==1){ dof=8;} //hit wall
-      else{ rx+xo; ry+=yo; dof+=1;} //next line
+      else{ rx+=xo; ry+=yo; dof+=1;} //next line
     }
       glColor3f(1,0,0); glLineWidth(1); glBegin(GL_LINES); glVertex2i(px,py); glVertex2i(rx,ry); glEnd();
  
