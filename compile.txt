@@ -1,0 +1,1 @@
+//gcc main.c -o bla.exe -lglu32 -lglut32 -lopengl32
