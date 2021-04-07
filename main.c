@@ -46,8 +46,9 @@ void drawMap2D()
 
 
 //-------------------------------PLAYER---------------------------------------
-float degToRad(int a) { return a*M_PI/180.0;}
-int FixAng(int a) { if(a>359){a-=360;} if(a<0){ a=+360;} return a; }
+float degToRad(float a) { return a*M_PI/180.0;}
+float FixAng(float a) { if(a>359){a-=360;} if(a<0){ a=+360;} return a; }
+
 
 
 float  px,py,pdx,pdy,pa;  //player position
@@ -151,13 +152,17 @@ void init()
   pdx=cos(degToRad(pa)); pdy=-sin(degToRad(pa));
 }
 
+float frame1,frame2,fps;
+
 void display()
 {
+  //frames per second
+  frame2=glutGet(GLUT_ELAPSED_TIME); fps=(frame2-frame1); frame1=glutGet(GLUT_ELAPSED_TIME);
   //buttons
-  if(Keys.a==1){ pa+=5; pa=FixAng(pa); pdx=cos(degToRad(pa)); pdy=-sin(degToRad(pa));}
-  if(Keys.d==1){ pa-=5; pa=FixAng(pa); pdx=cos(degToRad(pa)); pdy=-sin(degToRad(pa));}
-  if(Keys.w==1){ px+=pdx; py+=pdy;}
-  if(Keys.s==1){ px-=pdx; py-=pdy;}
+  if(Keys.a==1){ pa+=0.2*fps; pa=FixAng(pa); pdx=cos(degToRad(pa)); pdy=-sin(degToRad(pa));}
+  if(Keys.d==1){ pa-=0.2*fps; pa=FixAng(pa); pdx=cos(degToRad(pa)); pdy=-sin(degToRad(pa));}
+  if(Keys.w==1){ px+=pdx*0.2*fps; py+=pdy*0.2*fps;}
+  if(Keys.s==1){ px-=pdx*0.2*fps; py-=pdy*0.2*fps;}
   glutPostRedisplay();
 
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
